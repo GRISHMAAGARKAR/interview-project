@@ -44,8 +44,11 @@ async function registerUserController(req ,res){
         {expiresIn: "1d"}
     )
 
-    res.cookie("token" , token)
-
+    res.cookie("token" , token, {
+        httpOnly: true,
+        secure:true,
+        sameSite:"none"
+    })
     res.status(201).json({
         message : "User registered successfully",
     user: {
@@ -54,23 +57,18 @@ async function registerUserController(req ,res){
         email: user.email
     }   
  })
-
-
  }
-
  async function loginUserController(req ,res) {
     const{ email ,password }= req.body
     console.log("Login attempt:", email);
 
     const user = await userModel.findOne({ email })
-
-    if(!user) {
+if(!user) {
         return res.status(400).json({
             message: "Invalid email or password"
         })
     }
-
-    const isPasswordValid = await bcrypt.compare(password , user.password)
+const isPasswordValid = await bcrypt.compare(password , user.password)
 
     if(!isPasswordValid){
         return res.status(400).json({
@@ -84,7 +82,11 @@ async function registerUserController(req ,res){
         {expiresIn: "1d"}
     )
 
-    res.cookie("token" , token)
+    res.cookie("token" , token , {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+    })
     res.status(200).json({
         message: "login sucessfull",
         user: {
