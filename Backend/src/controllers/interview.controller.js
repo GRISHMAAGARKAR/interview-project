@@ -22,9 +22,16 @@ async function generateInterViewReportController(req, res) {
                 message: "File upload failed"
             });
         }
-        const response = await fetch(req.file.path);
-        const buffer = await response.buffer();
-        const resumeContent = await pdfParse(buffer);
+        let pdfBuffer;
+        if(req.file.buffer) {
+            pdfBuffer = req.file.buffer;
+        }else{
+            const axios = require("axios");
+            const pdfResponse = await axios.get(req.file.path, { responseType: 'arraybuffer' });
+            pdfBuffer = Buffer.from(pdfResponse.data);
+        }
+
+        const resumeContent = await pdfParse(pdfBuffer);
         const { selfDescription, jobDescription } = req.body;
 
         // Validate that required inputs are not empty strings or just whitespace
