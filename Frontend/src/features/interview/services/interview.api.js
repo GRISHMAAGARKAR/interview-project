@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://interview-project-8gfo.onrender.com",
+    baseURL: "https://interview-project-8gfo.onrender.com",
     withCredentials: true,
     headers: {
         'Cache-Control':'no-cache,no-store,must-revalidate',
