@@ -17,13 +17,14 @@ async function generateInterViewReportController(req, res) {
             });
         }
 
-        if (!req.file || !req.file.buffer) {
+        if (!req.file) {
             return res.status(400).json({
                 message: "File upload failed"
             });
         }
-
-        const resumeContent = await pdfParse(req.file.buffer);
+        const response = await fetch(req.file.path);
+        const buffer = await response.buffer();
+        const resumeContent = await pdfParse(buffer);
         const { selfDescription, jobDescription } = req.body;
 
         // Validate that required inputs are not empty strings or just whitespace
