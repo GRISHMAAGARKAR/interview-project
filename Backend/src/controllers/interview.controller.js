@@ -151,7 +151,7 @@ async function getAllInterviewReportsController(req, res) {
 
         res.status(200).json({
             message: "Interview reports fetched successfully.",
-            interviewReport 
+            interviewReports 
         });
     } catch (error) {
         console.error("ERROR IN GET ALL REPORTS:", error);
