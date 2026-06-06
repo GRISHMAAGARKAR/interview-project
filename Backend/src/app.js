@@ -9,7 +9,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use(cors ({
-    origin: ["https://interview-project-azure.vercel.app", "https://interview-project-2-azure.vercel.app"],
+    origin: [ "https://interview-project-2.vercel.app" , "http://localhost:5173"],
     credentials : true
 }))
 const authRouter = require("./routes/auth.routes")
