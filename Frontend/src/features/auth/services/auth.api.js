@@ -1,4 +1,4 @@
-import apiClient from "../../../api/api.client"
+
 
 export async function register({ username,email,password}){
      try{
