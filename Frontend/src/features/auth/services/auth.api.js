@@ -1,10 +1,8 @@
-import axios from "axios"
-
-const API_URL = 'https://interview-project-8gfo.onrender.com/api/auth';
+import apiClient from "../../../api/api.client"
 
 export async function register({ username,email,password}){
      try{
-    const response=await axios.post(`${API_URL}/register`,{
+    const response=await apiClient.post(`/auth/register`,{
         username,email,password
       })
       if (response.data.token) {
@@ -20,7 +18,7 @@ export async function register({ username,email,password}){
 
 export async function login({email,password}) {
         try{
-          const response=await axios.post(`${API_URL}/login`,{
+          const response=await apiClient.post(`/auth/login`,{
         email,password
       })
       if (response.data.token) {
@@ -36,12 +34,7 @@ export async function login({email,password}) {
 
 export async function logout() {
         try{
-          const response=await axios.post(`${API_URL}/logout`,{}
-      ,{
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      })
+          const response=await apiClient.post(`/auth/logout`,{})
       localStorage.removeItem('token');
       return response.data
 
@@ -53,11 +46,7 @@ export async function logout() {
         }        
 export async function getMe() {
         try{
-          const response=await axios.get(`${API_URL}/get-me`,{
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      })
+          const response=await apiClient.get(`/auth/get-me`)
       return response.data
 
 }catch(err) {
